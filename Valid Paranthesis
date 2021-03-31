@@ -1,0 +1,21 @@
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        dict1 = {')':'(','}':'{',']':'['}
+        list1 = []
+        for i in s:
+            
+            if len(list1) == 0 :
+                if i in dict1:
+                    return False
+                else:
+                    list1.append(i)
+            else:
+                if i in dict1 and list1[-1] == dict1[i]:
+                    list1.pop()
+                else:
+                    list1.append(i)
+        return len(list1) == 0
