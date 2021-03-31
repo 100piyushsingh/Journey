@@ -1,0 +1,40 @@
+class Solution(object):
+    def largestRectangleArea(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        stack = [-1]
+        leftList = [-1]*len(heights)
+        rightList = [-1]*len(heights)
+        
+        i = 0
+        while i < len(heights):
+            while heights[i] < heights[stack[-1]]:
+                p = stack.pop()
+                rightList[p] = i
+            
+            stack.append(i)
+            i += 1
+                
+        while stack:
+            p = stack.pop()
+            rightList[p] = len(heights)
+            
+        j = len(heights) - 1
+        
+        while j >= 0:
+            while heights[j] < heights[stack[-1]]:
+                p = stack.pop()
+                leftList[p] = j
+            stack.append(j)
+            j -= 1
+            
+        while stack:
+            p = stack.pop()
+            leftList[p] = -1
+        
+        for k in range(len(heights)):
+            maxArea = max(maxArea, (rightList[k]-leftList[k]-1)*heights[i])
+        return maxArea
+        
