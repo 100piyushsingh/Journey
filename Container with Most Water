@@ -1,0 +1,19 @@
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        maxVolume = 0
+        leftIndex = 0
+        rightIndex = len(height) - 1
+        width = rightIndex - leftIndex
+        
+        for i in range(width,0,-1):
+            if height[leftIndex] > height[rightIndex]:
+                maxVolume = max(maxVolume, i * height[rightIndex])
+                rightIndex = rightIndex - 1
+            else:
+                maxVolume = max(maxVolume, i * height[leftIndex])
+                leftIndex = leftIndex + 1
+        return maxVolume
